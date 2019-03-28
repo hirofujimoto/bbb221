@@ -15,7 +15,7 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('author_id');
+            $table->bigInteger('user_id');
             $table->string('title');
             $table->text('message');
             $table->smallInteger('has_image')->default(0);

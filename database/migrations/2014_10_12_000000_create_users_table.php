@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('status')->default(0);
             $table->rememberToken();
+            $table->timestamp('read_message_at')->nullable();
             $table->timestamps();
         });
     }

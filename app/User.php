@@ -20,6 +20,17 @@ class User extends Authenticatable implements MustVerifyEmailContract
         'name', 'email', 'password',
     ];
 
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -37,4 +48,6 @@ class User extends Authenticatable implements MustVerifyEmailContract
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
 }
