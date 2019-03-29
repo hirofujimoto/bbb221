@@ -32,7 +32,7 @@ class ArticleController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'message' => 'required'
+            'message' => 'filled',
         ]);
 
         $article = new Article;

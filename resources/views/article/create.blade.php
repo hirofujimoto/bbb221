@@ -12,18 +12,27 @@
                         @csrf
 
                         <div class="form-group row">
+                            @if ($errors->has('title'))
+                                <div>
+                                <p>{{ $errors->first('title')}}</p>
+                                </div>
+                            @endif
                             <label for="title" class="col-md-1 col-form-label text-md-right">{{ __('タイトル') }}</label>
 
                             <div class="col-md-10">
-                                <input id="title" type="text" class="form-control" name="title" required >
+                                <input id="title" type="text" class="form-control" name="title" >
                             </div>
                         </div>
 
                         <div class="form-group row">
+                            @if ($errors->has('message'))
+                                <div>
+                                <p>{{ $errors->first('message' )}}</p>
+                                </div>
+                            @endif
                             <label for="message" class="col-md-1 col-form-label text-md-right">{{ __('内容') }}</label>
-
                             <div class="col-md-10">
-                                <textarea id="message" class="form-control" name="email" rows="20" required >
+                                <textarea id="message" class="form-control" name="message" rows="20" >
                                 </textarea>
                             </div>
                         </div>
