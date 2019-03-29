@@ -32,12 +32,12 @@ class ArticleController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'message' => 'required',
+            'message' => 'required'
         ]);
 
         $article = new Article;
-        $article->title = $request->input('title');
-        $article->message = $request->input('message');
+        $article->title = $request->title;
+        $article->message = $request->message;
         $article->user_id = \Auth::user()->id;
         $article->save();
 
