@@ -6,33 +6,31 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('新規スレッド') }}</div>
-
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="card-body">
                     <form method="POST" action="{{ route('article.store') }}">
                         @csrf
 
                         <div class="form-group row">
-                            @if ($errors->has('title'))
-                                <div>
-                                <p>{{ $errors->first('title')}}</p>
-                                </div>
-                            @endif
-                            <label for="title" class="col-md-1 col-form-label text-md-right">{{ __('タイトル') }}</label>
-
+                            <label for="title" class="col-md-1 col-form-label text-md-right">{{ __('題名') }}</label>
                             <div class="col-md-10">
-                                <input id="title" type="text" class="form-control" name="title" >
+                                <input id="title" type="text" class="form-control" name="title" val="{{ old('title') }}" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            @if ($errors->has('message'))
-                                <div>
-                                <p>{{ $errors->first('message' )}}</p>
-                                </div>
-                            @endif
-                            <label for="message" class="col-md-1 col-form-label text-md-right">{{ __('内容') }}</label>
+                            <label for="message" class="col-md-1 col-form-label text-md-right">{{ __('本文') }}</label>
                             <div class="col-md-10">
-                                <textarea id="message" class="form-control" name="message" rows="20" >
+                                <textarea id="message" class="form-control" name="message" rows="20" required >
+                                {{ old('message') }}
                                 </textarea>
                             </div>
                         </div>
