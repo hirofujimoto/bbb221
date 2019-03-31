@@ -14,8 +14,11 @@
                         </div>
                     @endif
 
-                    {{ __('ご利用に先立ってメールアドレスによる本人確認が必要となります。') }}
-                    {{ __('もしメールが届かない場合は') }}, <a href="{{ route('verification.resend') }}">{{ __('ここをクリックすれば再送されます。') }}</a>.
+                    {{ __('ご利用に先立ってメールによる本人確認が必要となります。') }}
+                    {{ __('メールが届かない場合は下の「再送」ボタンをお使いください。') }} 
+                </div>
+                <div class="card-footer">
+                <a class="btn btn-primary" href="{{ route('verification.resend') }}">{{ __('再送') }}</a>
                 </div>
             </div>
         </div>

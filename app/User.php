@@ -51,8 +51,11 @@ class User extends Authenticatable implements MustVerifyEmailContract
 
     public function sendEmailVerificationNotification()
     {
-        echo "Receive Notification";
-        exit;
-        //$this->notify(new App\Notifications\CustomVerifyEmail);
+        $this->notify(new \App\Notifications\CustomVerifyEmail);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\CustomResetPassword($token));
     }
 }
