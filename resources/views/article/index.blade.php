@@ -9,7 +9,7 @@
                     <div class="row">
                         <span class="col-md-10">スレッドリスト</span>
                         <span class="col-md-2 pull-right">
-                            <a class="nav-link" href="{{ route('article.create') }}">{{ __('新規スレッド') }}</a>
+                            <a href="{{ route('article.create') }}" class="btn btn-primary">{{ __('新規スレッド') }}</a>
                         </span>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         <td><a href="{{ route('article.show',[$th->id ]) }}">{{ $th->title }}</td>
                         <td>{{ $th->user->name }}</td>
                         <td>{{ date("Y/m/d H:i", strtotime($th->created_at)) }}</td>
-                        <td>{{ count($th->comments) }}</td>
+                        <td align="center">{{ count($th->comments) }}</td>
                     </tr>
                     @empty
                     <tr>

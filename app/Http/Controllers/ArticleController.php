@@ -17,6 +17,16 @@ class ArticleController extends Controller
     {
         $this->middleware(['auth','verified']);
     }
+    /**
+     * Show the application dashboard.
+     *
+     */
+    public function index()
+    {
+        $threads = Article::paginate(5);
+
+        return view('article/index')->with('threads',$threads);
+    }
 
     /**
      * Create new article thread .
@@ -41,6 +51,16 @@ class ArticleController extends Controller
         $article->user_id = \Auth::user()->id;
         $article->save();
 
-        return redirect(action('HomeController@index'))->with('status','新しいスレッドを登録しました。');
+        return View('article/index')->with('status','新しいスレッドを登録しました。');
     }
+
+    public function show($id)
+    {
+        $article = Article::find($id);
+  //      var_dump($article);exit;
+
+        return View('article/show')->with('article', $article);
+
+    }
+
 }
