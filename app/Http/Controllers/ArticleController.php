@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -23,8 +24,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $threads = Article::paginate(5);
-
+        $threads = Article::paginate(15);
         return view('article/index')->with('threads',$threads);
     }
 
@@ -34,15 +34,15 @@ class ArticleController extends Controller
      */
     public function create()
     {
-
         return View('article/create');//
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'title' => 'required|max:255',
-            'message' => 'filled',
+            'message' => 'required',
+            'file.imagefile' => 'file|image|mimes:jpeg,png|dimensions:max_width=1200,max_height=1200'
         ]);
 
         $article = new Article;
@@ -51,14 +51,24 @@ class ArticleController extends Controller
         $article->user_id = \Auth::user()->id;
         $article->save();
 
-        return View('article/index')->with('status','新しいスレッドを登録しました。');
+        if($request->file('imagefile')->isValid()) {
+            $path = $request->file('imagefile')->storeAs('public/', sprintf("%08d",$article->id));
+            $article->has_image = 1;
+            $article->save();
+        }    
+         
+        return redirect()->route('article.index');
     }
 
     public function show($id)
     {
-        $article = Article::find($id);
-  //      var_dump($article);exit;
+//        $user = User::find(\Auth::user()->id);
+//        $user->read_message_at = date("Y-m-d H:i:s");
+//        $user->save();
+        \Auth::user()->read_message_at = date("Y-m-d H:i:s");
+        \Auth::user()->save();
 
+        $article = Article::find($id);
         return View('article/show')->with('article', $article);
 
     }

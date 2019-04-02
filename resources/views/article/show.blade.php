@@ -19,6 +19,12 @@
                                 mb_ereg_replace('(https?://[-_.!~*\'()a-zA-Z0-9;/?:@&=+$,%#]+)', 
                                     '<a href="\1" target="_blank">\1</a>', $article->message), false) 
                             !!}
+                            @if ($article->has_image)
+                                <br>
+                                <p>
+                                <img src="{{ Storage::url(sprintf("%08d",$article->id)) }}" />
+                                </p>
+                            @endif
                         </div>
                     </div>
                 </div>

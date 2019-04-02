@@ -16,22 +16,29 @@
                     </div>
                 @endif
                 <div class="card-body">
-                    <form method="POST" action="{{ route('article.store') }}">
+                    <form method="POST" action="{{ route('article.store') }}" enctype="multipart/form-data" >
                         @csrf
 
                         <div class="form-group row">
                             <label for="title" class="col-md-1 col-form-label text-md-right">{{ __('題名') }}</label>
                             <div class="col-md-10">
-                                <input id="title" type="text" class="form-control" name="title" val="{{ old('title') }}" required>
+                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="message" class="col-md-1 col-form-label text-md-right">{{ __('本文') }}</label>
                             <div class="col-md-10">
-                                <textarea id="message" class="form-control" name="message" rows="20" required >
-                                {{ old('message') }}
-                                </textarea>
+                                <textarea id="message" class="form-control" name="message" rows="20" >{{ old('message') }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="imagefile" class="col-md-1 col-form-label text-md-right">{{ __('画像') }}</label>
+                            <div class="col-md-6">
+                                <input id="imagefile" type="file" class="form-control" name="imagefile">
+                            </div>
+                            <div class="col-md-4">
+                                {{ __('画像はjpg，png。サイズは 縦横1200px までです。') }}
                             </div>
                         </div>
 
@@ -40,6 +47,11 @@
                                 <button type="submit" class="btn btn-primary form-control">
                                     {{ __('登録') }}
                                 </button>
+                            </div>
+                            <div class="col-md-2 offset-md-6">
+                                <a href={{ route("article.index") }} class="btn btn-primary form-control">
+                               {{ __('キャンセル') }}
+                                </a>
                             </div>
                         </div>
                     </form>
