@@ -24,7 +24,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $threads = Article::paginate(15);
+        $threads = Article::orderBy('created_at', 'desc')->paginate(15);
         return view('article/index')->with('threads',$threads);
     }
 

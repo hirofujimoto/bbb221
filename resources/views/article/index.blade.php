@@ -45,6 +45,11 @@
                     </tbody>
                     </table>
                 </div>
+                <div class="card-footer">
+                @if(!empty($threads))
+                    {{ $threads->render() }}
+                @endif
+                </div>
             </div>
         </div>
     </div>
