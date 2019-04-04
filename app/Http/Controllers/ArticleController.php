@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Article;
+use App\Reading;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -47,12 +48,12 @@ class ArticleController extends Controller
 
         $article = new Article;
         $article->title = $request->title;
-        $article->message = $request->message;
+        $article->message = strip_tags($request->message);
         $article->user_id = \Auth::user()->id;
         $article->save();
 
-        if($request->file('imagefile')->isValid()) {
-            $path = $request->file('imagefile')->storeAs('public/', sprintf("%08d",$article->id));
+        if($request->file('imagefile') && $request->file('imagefile')->isValid()) {
+            $path = $request->file('imagefile')->storeAs('public/', sprintf("a%08d",$article->id));
             $article->has_image = 1;
             $article->save();
         }    
@@ -62,11 +63,11 @@ class ArticleController extends Controller
 
     public function show($id)
     {
-//        $user = User::find(\Auth::user()->id);
-//        $user->read_message_at = date("Y-m-d H:i:s");
-//        $user->save();
-        \Auth::user()->read_message_at = date("Y-m-d H:i:s");
-        \Auth::user()->save();
+        $record = new Reading;
+        $record->user_id = \Auth::user()->id;
+        $record->article_id = $id;
+        $record->comment_id = 0;
+        $record->save();
 
         $article = Article::find($id);
         return View('article/show')->with('article', $article);
