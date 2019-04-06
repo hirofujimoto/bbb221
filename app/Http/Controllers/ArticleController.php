@@ -96,5 +96,14 @@ class ArticleController extends Controller
         return redirect()->route('comment.show',[$unread->id]);
     }
     
+    public function lastread($id)
+    {
+        $last_read = Reading::where('article_id',$id)->where('user_id',\Auth::user()->id)
+            ->orderBy('read_at','desc')->first();
+        if($last_read == NULL || $last_read->comment_id == 0){
+            return redirect()->route('article.show',[$id]);
+        }
+        return redirect()->route('comment.show',[$last_read->comment_id]);
+    }
 
 }

@@ -27,10 +27,14 @@
                             @endif
                         </div>
                         <div class="col-md-1">
+                            <div class="button_column">
                             @if(count($article->comments))
+                            <span class="next_button">
                                 <a href={{ route('comment.show',[$article->comments()->first()->id] )}}
-                                    class="btn btn-success form-controll">{{ __('NEXT') }} </a>
+                                    class="btn btn-success form-controll">{{ __('▼') }} </a>
+                            </span>
                             @endif
+                            </div>
                         </div>
                     </div>
                 </div>

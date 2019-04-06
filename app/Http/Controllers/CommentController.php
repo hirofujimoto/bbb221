@@ -54,12 +54,12 @@ class CommentController extends Controller
         $article->save();
         
         $last_read = Reading::where('user_id','=',\Auth::user()->id)->orderBy('read_at','desc')->first();
-        if($last_read->article_id != 0){
-            $article = Article::find($last_read->article_id);
-            return View('article/show')->with('article', $article);
+        if($last_read->comment_id != 0){
+            $base_comment = Comment::find($last_read->comment_id);
+            return View('comment/show')->with('comment', $base_comment);
         }
-        $comment = Comment::find($last_read->$comment_id);
-        return View('comment/show')->with('comment', $comment);
+        $article = Article::find($last_read->article_id);
+        return View('article/show')->with('article', $article);
     }
 
     public function show($id)

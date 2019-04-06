@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     @csrf
-                    <div class="form-group row">
+                    <div class="form-group row h-500">
                         <div class="col-md-11">
                             {!! nl2br(
                                 mb_ereg_replace('(https?://[-_.!~*\'()a-zA-Z0-9;/?:@&=+$,%#]+)', 
@@ -27,17 +27,25 @@
                             @endif
                         </div>
                         <div class="col-md-1">
+                            <div class="button_column">
                             @if($comment->previous())
+                            <span class='prev_button'>
                                 <a href={{ route('comment.show',[$comment->previous()] )}}
-                                    class="btn btn-success form-controll">{{ __('PREV') }} </a>
+                                    class="btn btn-success form-controll">{{ __('▲') }} </a>
+                            </span>
                             @else
+                            <span class='prev_button'>
                                 <a href={{ route('article.show',[$comment->article_id] )}}
-                                    class="btn btn-success form-controll">{{ __('PREV') }} </a>
+                                    class="btn btn-success form-controll">{{ __('▲') }} </a>
+                            </span>
                             @endif
                             @if($comment->next())
+                            <span class='next_button'>
                                 <a href={{ route('comment.show',[$comment->next()] )}}
-                                    class="btn btn-success form-controll">{{ __('NEXT') }} </a>
+                                    class="btn btn-success form-controll">{{ __('▼') }} </a>
+                            </span>
                             @endif
+                            </div>
                         </div>
                     </div>
                 </div>

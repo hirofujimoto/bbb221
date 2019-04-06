@@ -25,7 +25,7 @@
                         <th width=40% >タイトル</th>
                         <th width=15% >作成者</th>
                         <th width=25% >作成日時</th>
-                        <th>未読数/発言数</th>
+                        <th>未読/総数</th>
                         <th width=10%></th>
                     </tr></thead>
                     <tbody>
@@ -35,7 +35,7 @@
                         <td>{{ $th->user->name }}</td>
                         <td>{{ date("Y/m/d H:i", strtotime($th->created_at)) }}</td>
                         <td>{{ $th->readings() }}</td>
-                        <td><a href="{{ route('article.unread',[$th->id ]) }}" >未読先頭</a></td>
+                        <td><a href="{{ route('article.lastread',[$th->id ]) }}" >最終閲覧</a></td>
                     </tr>
                     @empty
                     <tr>
