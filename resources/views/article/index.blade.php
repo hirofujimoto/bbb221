@@ -7,9 +7,9 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <span class="col-md-10">スレッドリスト</span>
+                        <span class="col-md-10">スレッドリスト（最近更新された順）</span>
                         <span class="col-md-2 pull-right">
-                            <a href="{{ route('article.create') }}" class="btn btn-primary">{{ __('新規スレッド') }}</a>
+                            <a href="{{ route('article.create') }}" class="btn btn-primary">{{ __('新規スレッド作成') }}</a>
                         </span>
                     </div>
                 </div>
@@ -23,9 +23,10 @@
                     <table width=100%>
                     <thead><tr>
                         <th width=40% >タイトル</th>
-                        <th width=20% >投稿者</th>
-                        <th width=25% >日時</th>
-                        <th>コメント数</th>
+                        <th width=15% >作成者</th>
+                        <th width=25% >作成日時</th>
+                        <th>未読数/発言数</th>
+                        <th width=10%></th>
                     </tr></thead>
                     <tbody>
                     @forelse($threads as $th)
@@ -33,7 +34,8 @@
                         <td><a href="{{ route('article.show',[$th->id ]) }}">{{ $th->title }}</td>
                         <td>{{ $th->user->name }}</td>
                         <td>{{ date("Y/m/d H:i", strtotime($th->created_at)) }}</td>
-                        <td align="center">{{ count($th->comments) }}</td>
+                        <td>{{ $th->readings() }}</td>
+                        <td><a href="{{ route('article.unread',[$th->id ]) }}" >未読先頭</a></td>
                     </tr>
                     @empty
                     <tr>

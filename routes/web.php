@@ -20,10 +20,12 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'ArticleController@index');
+Route::get('/home','ArticleController@index');
 Route::get('/article/index','ArticleController@index')->name('article.index');
 Route::get('/article/create', 'ArticleController@create')->name('article.create');
 Route::post('/article/store', 'ArticleController@store')->name('article.store');
 Route::get('/article/show/{id}', 'ArticleController@show')->name('article.show');
+Route::get('/article/uread/{id}', 'ArticleController@unread')->name('article.unread');
 
 Route::get('/comment/create/{article_id}', 'CommentController@create')->name('comment.create');
 Route::post('/comment/store', 'CommentController@store')->name('comment.store');

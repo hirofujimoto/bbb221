@@ -2,6 +2,10 @@
 
 namespace App;
 
+use App\User;
+use App\Comment;
+use App\Reading;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
@@ -17,5 +21,12 @@ class Article extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function readings()
+    {
+        $all_message_count = count($this->comments) + 1;
+        $all_reading_count = Reading::where('article_id',$this->id)->where('user_id',\Auth::user()->id)->count();
+        return  sprintf("%d/%d",$all_message_count-$all_reading_count, $all_message_count);
     }
 }

@@ -18,6 +18,7 @@ class CreateReadingsTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('article_id');
             $table->bigInteger('comment_id');
+            $table->bigInteger('read_at');
         });
     }
 

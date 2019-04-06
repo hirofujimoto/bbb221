@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Article;
+use App\Comment;
 use App\Reading;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $threads = Article::orderBy('created_at', 'desc')->paginate(15);
+        $threads = Article::orderBy('updated_at', 'desc')->paginate(15);
         return view('article/index')->with('threads',$threads);
     }
 
@@ -63,15 +64,37 @@ class ArticleController extends Controller
 
     public function show($id)
     {
-        $record = new Reading;
-        $record->user_id = \Auth::user()->id;
-        $record->article_id = $id;
-        $record->comment_id = 0;
+        $record = Reading::where('article_id',$id)->where('user_id', \Auth::user()->id)->first();
+        if($record == NULL){
+            $record = new Reading;
+            $record->user_id = \Auth::user()->id;
+            $record->article_id = $id;
+            $record->comment_id = 0;
+            $record->read_at = time();
+        }else{
+            $record->read_at = time();
+        }
         $record->save();
 
         $article = Article::find($id);
         return View('article/show')->with('article', $article);
 
     }
+
+    public function unread($id)
+    {
+        $last_read = Reading::where('article_id',$id)->where('user_id',\Auth::user()->id)
+            ->orderBy('read_at','desc')->first();
+        if($last_read == NULL){
+            return redirect()->route('article.show',[$id]);
+        }
+        $unread = Comment::where('article_id',$id)
+            ->where('id','>',$last_read->comment_id)->orderBy('updated_at','asc')->first();
+        if($unread == NULL){
+            return redirect()->route('article.show',[$id]);
+        }
+        return redirect()->route('comment.show',[$unread->id]);
+    }
+    
 
 }

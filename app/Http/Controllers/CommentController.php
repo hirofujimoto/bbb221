@@ -47,9 +47,13 @@ class CommentController extends Controller
             $path = $request->file('imagefile')->storeAs('public/', sprintf("c%08d",$comment->id));
             $comment->has_image = 1;
             $comment->save();
-        }    
+        }
+
+        $article = Article::find($comment->article_id);
+        $article->updated_at = date("Y-m-d H:i:s");     // Being commented is 'update' of thread.
+        $article->save();
         
-        $last_read = Reading::where('user_id','=',\Auth::user()->id)->last();
+        $last_read = Reading::where('user_id','=',\Auth::user()->id)->orderBy('read_at','desc')->first();
         if($last_read->article_id != 0){
             $article = Article::find($last_read->article_id);
             return View('article/show')->with('article', $article);
@@ -60,10 +64,17 @@ class CommentController extends Controller
 
     public function show($id)
     {
-        $record = new Reading;
-        $record->user_id = \Auth::user()->id;
-        $record->article_id = 0;
-        $record->comment_id = $id;
+        $record = Reading::where('comment_id',$id)->where('user_id', \Auth::user()->id)->first();
+        if($record == NULL){
+            $comment = Comment::find($id);
+            $record = new Reading;
+            $record->user_id = \Auth::user()->id;
+            $record->article_id = $comment->article_id;
+            $record->comment_id = $id;
+            $record->read_at = time();
+        }else{
+            $record->read_at = time();
+        }
         $record->save();
 
         $comment = Comment::find($id);
