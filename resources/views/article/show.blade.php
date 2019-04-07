@@ -41,11 +41,22 @@
                 <div class="card-footer">
                     <div class="form-group row">
                         <span class="col-md-2">
-                            <a href={{ route('comment.create',[$article->id]) }} class="btn btn-primary form-control">{{ __('コメント') }}</a>
+                            <a href={{ route('comment.create',[$article->id]) }} 
+                                class="btn btn-primary form-control">{{ __('コメントする') }}</a>
                         </span>
+                        @if ($article->user_id == \Auth::user()->id)
+                        <span class="offset-md-6 col-md-2">
+                            <a href={{ route('article.edit',[$article->id])}}, class="btn btn-danger form-control">{{ __('編集') }}</a>
+                        </span>
+                        <span class="col-md-2">
+                            <a href={{ route('article.index') }} class="btn btn-primary form-control">{{ __('スレッドリスト') }}</a> 
+                        </span>    
+
+                        @else
                         <span class="offset-md-8 col-md-2">
                             <a href={{ route('article.index') }} class="btn btn-primary form-control">{{ __('スレッドリスト') }}</a> 
                         </span>    
+                        @endif
                     </div>
                 </div>
             </div>

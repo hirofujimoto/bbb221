@@ -19,6 +19,11 @@ class Comment extends Model
         return $this->belongsTo(Article::class);
     }
 
+    public function histories()
+    {
+        return $this->hasMany(Hostory::class);
+    }
+
     public function previous()
     {
         $prev = Comment::where('article_id',$this->article_id)->where('id','<',$this->id)->orderBy('id','desc')->first();

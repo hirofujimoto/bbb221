@@ -6,6 +6,7 @@ use App\User;
 use App\Article;
 use App\Comment;
 use App\Reading;
+use App\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -82,4 +83,52 @@ class CommentController extends Controller
 
     }
 
+    public function edit($id)
+    {
+        $comment = Comment::find($id);
+        return View('comment/edit')->with('comment',$comment);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'message' => 'required',
+            'file.imagefile' => 'file|image|mimes:jpeg,png|dimensions:max_width=1200,max_height=1200'
+        ]);
+
+        $comment = Comment::find($request->comment_id);
+
+        $history = new History;
+        $history->article_id = $comment->article_id;
+        $history->comment_id = $comment->id;
+        $history->message = $comment->message;
+        $history->changed_at = time();
+
+        if($request->image == 'delete' || $request->image == 'change'){    // delete or update image file.
+            $history->image_tag = sprintf("_%08x",$history->changed_at);
+            $image_name = sprintf("c%08d",$comment->id);
+            Storage::move('public/'.$image_name, 'public/'.$image_name.$history->image_tag);
+        }else{
+            $history->image_tag = '';
+        }
+        $history->save();
+
+        if($request->image == 'delete'){
+            $comment->has_image = 0;
+        }elseif($request->image == 'add'){
+            $comment->has_image = 1;
+        }
+        if($comment->has_image == 1 && $request->image != 'remain'){
+            if($request->file('imagefile') && $request->file('imagefile')->isValid()) {
+                $path = $request->file('imagefile')->storeAs('public/', sprintf("c%08d",$comment->id));                
+            }else{
+                $comment->has_image = 0;    // error.
+            }   
+        }            
+        $comment->message = strip_tags($request->message);
+        $comment->status += 1;
+        $comment->save();
+
+        return redirect()->route('comment.show',[$comment->id]);
+    }
 }

@@ -6,6 +6,7 @@ use App\User;
 use App\Article;
 use App\Comment;
 use App\Reading;
+use App\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -104,6 +105,55 @@ class ArticleController extends Controller
             return redirect()->route('article.show',[$id]);
         }
         return redirect()->route('comment.show',[$last_read->comment_id]);
+    }
+
+    public function edit($id)
+    {
+        $article = Article::find($id);
+        return View('article/edit')->with('article',$article);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'message' => 'required',
+            'file.imagefile' => 'file|image|mimes:jpeg,png|dimensions:max_width=1200,max_height=1200'
+        ]);
+
+        $article = Article::find($request->article_id);
+
+        $history = new History;
+        $history->article_id = $request->article_id;
+        $history->comment_id = 0;
+        $history->message = $article->message;
+        $history->changed_at = time();
+
+        if($request->image == 'delete' || $request->image == 'change'){    // delete or update image file.
+            $history->image_tag = sprintf("_%08x",$history->changed_at);
+            $image_name = sprintf("a%08d",$article->id);
+            Storage::move('public/'.$image_name, 'public/'.$image_name.$history->image_tag);
+        }else{
+            $history->image_tag = '';
+        }
+        $history->save();
+
+        if($request->image == 'delete'){
+            $article->has_image = 0;
+        }elseif($request->image == 'add'){
+            $article->has_image = 1;
+        }
+        if($article->has_image == 1 && $request->image != 'remain'){
+            if($request->file('imagefile') && $request->file('imagefile')->isValid()) {
+                $path = $request->file('imagefile')->storeAs('public/', sprintf("a%08d",$article->id));                
+            }else{
+                $article->has_image = 0;    // error.
+            }   
+        }            
+        $article->message = strip_tags($request->message);
+        $article->status += 1;
+        $article->save();
+
+        return redirect()->route('article.show',[$article->id]);
     }
 
 }

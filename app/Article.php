@@ -23,6 +23,12 @@ class Article extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function histories()
+    {
+        return $this->hasMany(Hostory::class);
+    }
+
+
     public function readings()
     {
         $all_message_count = count($this->comments) + 1;
