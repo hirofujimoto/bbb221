@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\User;
 use App\Article;
 use App\Comment;
@@ -27,7 +28,16 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $threads = Article::orderBy('updated_at', 'desc')->paginate(15);
+        if(Session::has('needle')){
+            $needle = Session::get('needle','empty');
+            $threads = Article::distinct()->select('articles.*')
+                ->join('comments','comments.article_id','=','articles.id')
+                ->orwhere('articles.message','like','%'.$needle.'%')
+                ->orwhere('comments.message','like','%'.$needle.'%')
+                ->orderBy('articles.updated_at', 'desc')->paginate(15);
+        }else{
+            $threads = Article::orderBy('updated_at', 'desc')->paginate(15);
+        }
         return view('article/index')->with('threads',$threads);
     }
 
@@ -156,4 +166,17 @@ class ArticleController extends Controller
         return redirect()->route('article.show',[$article->id]);
     }
 
+    public function squeeze(Request $request)
+    {
+        $request->validate([
+            'needle' => 'max:64',
+        ]);
+
+        if(strlen($request->needle)){
+            Session::put('needle', $request->needle);
+        }else{
+            Session::forget('needle');
+        }
+        return redirect()->route('article.index');
+    }
 }
