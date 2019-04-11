@@ -28,15 +28,15 @@
                         </div>
                         <div class="col-md-1">
                             <div class="button_column">
-                                @if($depth > 1)
+                                @if($depth < $count)
                                 <span class='prev_button'>
-                                    <a href={{ route('history.article',[$history->article_id, $depth-1] )}}
+                                    <a href={{ route('history.article',[$history->article_id, $depth+1] )}}
                                         class="btn btn-warning form-control">{{ __('▲') }} </a>
                                 </span>
                                 @endif
-                                @if($depth < $count)
+                                @if($depth > 1)
                                 <span class='next_button'>
-                                    <a href={{ route('history.article',[$history->article_id, $depth+1] )}}
+                                    <a href={{ route('history.article',[$history->article_id, $depth-1] )}}
                                         class="btn btn-warning form-control">{{ __('▼') }} </a>
                                 </span>
                                 @endif
