@@ -36,3 +36,5 @@ Route::get('/comment/show/{id}', 'CommentController@show')->name('comment.show')
 Route::get('/comment/edit/{id}', 'CommentController@edit')->name('comment.edit');
 Route::post('/comment/update','CommentController@update')->name('comment.update');
 
+Route::get('/history/article/{id}/{depth?}','HistoryController@article')->name('history.article');
+Route::get('/history/comment/{id}/{depth?}','HistoryController@comment')->name('history.comment');

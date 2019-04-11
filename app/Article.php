@@ -25,7 +25,7 @@ class Article extends Model
 
     public function histories()
     {
-        return $this->hasMany(Hostory::class);
+        return $this->hasMany(History::class);
     }
 
 

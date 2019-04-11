@@ -31,18 +31,18 @@
                             @if($comment->previous())
                             <span class='prev_button'>
                                 <a href={{ route('comment.show',[$comment->previous()] )}}
-                                    class="btn btn-success form-controll">{{ __('▲') }} </a>
+                                    class="btn btn-success form-control">{{ __('▲') }} </a>
                             </span>
                             @else
                             <span class='prev_button'>
                                 <a href={{ route('article.show',[$comment->article_id] )}}
-                                    class="btn btn-success form-controll">{{ __('▲') }} </a>
+                                    class="btn btn-success form-control">{{ __('▲') }} </a>
                             </span>
                             @endif
                             @if($comment->next())
                             <span class='next_button'>
                                 <a href={{ route('comment.show',[$comment->next()] )}}
-                                    class="btn btn-success form-controll">{{ __('▼') }} </a>
+                                    class="btn btn-success form-control">{{ __('▼') }} </a>
                             </span>
                             @endif
                             </div>
@@ -55,18 +55,22 @@
                             <a href={{ route('comment.create',[$comment->article_id]) }}
                                  class="btn btn-primary form-control">{{ __('コメントする') }}</a>
                         </span>
-                        @if ($comment->user_id == \Auth::user()->id)
-                        <span class="offset-md-6 col-md-2">
-                            <a href={{ route('comment.edit',[$comment->id])}}, class="btn btn-danger form-control">{{ __('編集') }}</a>
+                        <span class="col-md-2">
+                            @if (count($comment->histories))
+                                <a href={{ route('history.comment',[$comment->id]) }}, class="btn btn-warning form-control">{{ __('履歴') }}</a>
+
+                            @endif
+                        </span>
+                        <span class="col-md-4">
+                        </span>
+                        <span class="col-md-2">
+                            @if ($comment->user_id == \Auth::user()->id)
+                                <a href={{ route('comment.edit',[$comment->id])}}, class="btn btn-danger form-control">{{ __('編集') }}</a>
+                            @endif
                         </span>
                         <span class="col-md-2">
                             <a href={{ route('article.index') }} class="btn btn-primary form-control">{{ __('スレッドリスト') }}</a> 
                         </span>    
-                        @else
-                        <span class="offset-md-8 col-md-2">
-                            <a href={{ route('article.index') }} class="btn btn-primary form-control">{{ __('スレッドリスト') }}</a> 
-                        </span> 
-                        @endif 
                     </div>
                 </div>
             </div>
