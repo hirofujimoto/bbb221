@@ -38,3 +38,9 @@ Route::post('/comment/update','CommentController@update')->name('comment.update'
 
 Route::get('/history/article/{id}/{depth?}','HistoryController@article')->name('history.article');
 Route::get('/history/comment/{id}/{depth?}','HistoryController@comment')->name('history.comment');
+
+Route::get('/home/backup', function(){
+
+    \DB::statement("mysqldump -uroot -proot -r 221.backup --single-transaction bbb221");
+
+});

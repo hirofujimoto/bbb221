@@ -9,7 +9,7 @@
                     <div class="row">
                         <span class="col-md-10">スレッドリスト（最近更新された順）</span>
                         <span class="col-md-2 pull-right">
-                            <a href="{{ route('article.create') }}" class="btn btn-primary">{{ __('新規スレッド作成') }}</a>
+                            <a href="{{ route('article.create') }}" class="btn btn-success">{{ __('新規スレッド作成') }}</a>
                         </span>
                     </div>
                 </div>

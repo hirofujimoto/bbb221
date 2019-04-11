@@ -42,7 +42,7 @@
                     <div class="form-group row">
                         <span class="col-md-2">
                             <a href={{ route('comment.create',[$article->id]) }} 
-                                class="btn btn-primary form-control">{{ __('コメントする') }}</a>
+                                class="btn btn-success form-control">{{ __('コメントする') }}</a>
                         </span>
                         <span class="col-md-2">
                             @if (count($article->histories))

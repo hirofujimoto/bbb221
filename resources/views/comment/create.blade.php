@@ -38,7 +38,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-2 offset-md-1">
-                                <button type="submit" class="btn btn-primary form-control">
+                                <button type="submit" class="btn btn-success form-control">
                                     {{ __('登録') }}
                                 </button>
                             </div>
