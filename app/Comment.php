@@ -19,6 +19,10 @@ class Comment extends Model
         return $this->belongsTo(Article::class);
     }
 
+    public function root(){
+        return $this->belongsTo(Comment::class);
+    }
+
     public function histories()
     {
         return $this->hasMany(History::class);
@@ -41,4 +45,25 @@ class Comment extends Model
         }
         return  $next->id;
     }
+
+    public static function makeTree($comments, $tree = array(), $depth = 0)
+    {
+        $depth++;
+        foreach($comments as $com){
+            $comset = array(
+                'id' => $com->id,
+                'user' => $com->user->name,
+                'head' => sprintf("%s...", mb_substr($com->message,0,25)),
+                'date' => $com->created_at,
+                'depth' => $depth
+            );
+            array_push($tree,$comset);
+            $branches = Comment::where('root_id', $com->id)->orderBy('created_at', 'asc')->get();
+            if(count($branches)){
+                $tree = static::makeTree($branches,$tree,$depth);
+            }  
+        }
+        return $tree;        
+    }
+
 }

@@ -50,12 +50,15 @@
 
                             @endif
                         </span>
-                        <span class="col-md-4">
+                        <span class="col-md-2">
                         </span>
                         <span class="col-md-2">
                             @if ($article->user_id == \Auth::user()->id)
                                 <a href={{ route('article.edit',[$article->id])}}, class="btn btn-danger form-control">{{ __('編集') }}</a>
                             @endif
+                        </span>
+                        <span class="col-md-2">
+                            <a href={{ route('article.tree',[$article->id]) }} class="btn btn-primary form-control">{{ __('スレッドツリー') }}</a> 
                         </span>
                         <span class="col-md-2">
                             <a href={{ route('article.index') }} class="btn btn-primary form-control">{{ __('スレッドリスト') }}</a> 

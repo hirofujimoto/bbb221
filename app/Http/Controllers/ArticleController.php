@@ -179,4 +179,14 @@ class ArticleController extends Controller
         }
         return redirect()->route('article.index');
     }
+
+    public function tree($id)
+    {
+        $article = Article::find($id);
+        $comments = Comment::where('article_id', $id)->where('root_id', 0)->orderBy('updated_at','desc')->get();
+        $tree = Comment::makeTree($comments);
+        
+        return View('article/tree')->with('article', $article)->with('tree', $tree);
+    }
+
 }

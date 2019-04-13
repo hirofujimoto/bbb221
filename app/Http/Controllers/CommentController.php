@@ -25,10 +25,14 @@ class CommentController extends Controller
      * Create new comment to the thread .
      *
      */
-    public function create($article_id)
+    public function create($article_id, $comment_id = 0)
     {
         $article = Article::find($article_id);
-        return View('comment/create')->with('article', $article);//
+        if($comment_id == 0){
+            return View('comment/create')->with('article', $article);//
+        }
+        $comment = Comment::find($comment_id);
+        return View('comment/create')->with('article', $article)->with('comment', $comment);//
     }
 
     public function store(Request $request)
@@ -40,6 +44,7 @@ class CommentController extends Controller
 
         $comment = new Comment;
         $comment->article_id = $request->article_id;
+        $comment->root_id = isset($request->root_id) ? $request->root_id:0;
         $comment->message = strip_tags($request->message);
         $comment->user_id = \Auth::user()->id;
         $comment->save();

@@ -5,7 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ sprintf("スレッド「%s」へのコメント",$article->title) }}</div>
+                <div class="card-header">
+                    @if(isset($comment))
+                        {{ sprintf("スレッド「%s」への%sさんのコメントへのコメント", $article->title,$comment->user->name) }}
+                    @else
+                        {{ sprintf("スレッド「%s」へのコメント",$article->title) }}
+                    @endif
+                </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -23,6 +29,9 @@
                             <label for="message" class="col-md-1 col-form-label text-md-right">{{ __('本文') }}</label>
                             <div class="col-md-10">
                                 <input id="article_id", type="hidden", name="article_id", value={{ $article->id }} >
+                                @if(isset($comment))
+                                    <input id="root_id", type="hidden", name="root_id", value={{ $comment->id }} >
+                                @endif
                                 <textarea id="message" class="form-control" name="message" rows="20" >{{ old('message') }}</textarea>
                             </div>
                         </div>

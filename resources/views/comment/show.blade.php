@@ -52,7 +52,7 @@
                 <div class="card-footer">
                     <div class="form-group row">
                         <span class="col-md-2">
-                            <a href={{ route('comment.create',[$comment->article_id]) }}
+                            <a href={{ route('comment.create',[$comment->article_id, $comment->id]) }}
                                  class="btn btn-success form-control">{{ __('コメントする') }}</a>
                         </span>
                         <span class="col-md-2">
@@ -61,12 +61,15 @@
 
                             @endif
                         </span>
-                        <span class="col-md-4">
+                        <span class="col-md-2">
                         </span>
                         <span class="col-md-2">
                             @if ($comment->user_id == \Auth::user()->id)
                                 <a href={{ route('comment.edit',[$comment->id])}}, class="btn btn-danger form-control">{{ __('編集') }}</a>
                             @endif
+                        </span>
+                        <span class="col-md-2">
+                            <a href={{ route('article.tree',[$comment->article_id]) }} class="btn btn-primary form-control">{{ __('スレッドツリー') }}</a> 
                         </span>
                         <span class="col-md-2">
                             <a href={{ route('article.index') }} class="btn btn-primary form-control">{{ __('スレッドリスト') }}</a> 

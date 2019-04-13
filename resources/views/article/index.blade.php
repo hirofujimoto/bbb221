@@ -31,7 +31,7 @@
                     <tbody>
                     @forelse($threads as $th)
                     <tr>
-                        <td><a href="{{ route('article.show',[$th->id ]) }}">{{ $th->title }}</td>
+                        <td><a href="{{ route('article.tree',[$th->id ]) }}">{{ $th->title }}</td>
                         <td>{{ $th->user->name }}</td>
                         <td>{{ date("Y/m/d H:i", strtotime($th->created_at)) }}</td>
                         <td>{{ $th->readings() }}</td>

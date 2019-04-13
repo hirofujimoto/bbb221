@@ -30,8 +30,9 @@ Route::get('/article/lastread/{id}','ArticleController@lastread')->name('article
 Route::get('/article/edit/{id}','ArticleController@edit')->name('article.edit');
 Route::post('/article/update','ArticleController@update')->name('article.update');
 Route::post('/article/squeeze','ArticleController@squeeze')->name('article.squeeze');
+Route::get('/article/tree/{id}', 'ArticleController@tree')->name('article.tree');
 
-Route::get('/comment/create/{article_id}', 'CommentController@create')->name('comment.create');
+Route::get('/comment/create/{article_id}/{comment_id?}', 'CommentController@create')->name('comment.create');
 Route::post('/comment/store', 'CommentController@store')->name('comment.store');
 Route::get('/comment/show/{id}', 'CommentController@show')->name('comment.show');
 Route::get('/comment/edit/{id}', 'CommentController@edit')->name('comment.edit');
