@@ -29,6 +29,7 @@ Route::get('/article/unread/{id}', 'ArticleController@unread')->name('article.un
 Route::get('/article/lastread/{id}','ArticleController@lastread')->name('article.lastread');
 Route::get('/article/edit/{id}','ArticleController@edit')->name('article.edit');
 Route::post('/article/update','ArticleController@update')->name('article.update');
+Route::post('/article/squeeze','ArticleController@squeeze')->name('article.squeeze');
 
 Route::get('/comment/create/{article_id}', 'CommentController@create')->name('comment.create');
 Route::post('/comment/store', 'CommentController@store')->name('comment.store');
@@ -38,9 +39,3 @@ Route::post('/comment/update','CommentController@update')->name('comment.update'
 
 Route::get('/history/article/{id}/{depth?}','HistoryController@article')->name('history.article');
 Route::get('/history/comment/{id}/{depth?}','HistoryController@comment')->name('history.comment');
-
-Route::get('/home/backup', function(){
-
-    \DB::statement("mysqldump -uroot -proot -r 221.backup --single-transaction bbb221");
-
-});

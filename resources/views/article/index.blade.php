@@ -48,10 +48,24 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                @if(!empty($threads))
-                    {{ $threads->render() }}
-                @endif
-                </div>
+                    <form method="POST" action="{{ route('article.squeeze') }}" >
+                    @csrf
+                    <div class="row">
+                        <span class="col-md-8">
+                            @if(!empty($threads))
+                                {{ $threads->onEachSide(5)->links() }}
+                            @endif
+                        </span>
+                        <span class="col-md-3">
+                            <input id="needle" type="text" 
+                                class="form-control" name="needle" value="{{ Session::get('needle','') }}">
+                        </span>
+                        <span class="col-md-1">
+                            <button type="submit" class="btn btn-primary form-control">{{ __('検索') }}</button>
+                        </span>
+                    </div>
+                    </form>
+               </div>
             </div>
         </div>
     </div>
