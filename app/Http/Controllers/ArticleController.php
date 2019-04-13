@@ -69,8 +69,8 @@ class ArticleController extends Controller
             $article->has_image = 1;
             $article->save();
         }    
-         
-        return redirect()->route('article.index');
+
+        return redirect()->route('article.show',[$article->id]);
     }
 
     public function show($id)

@@ -53,14 +53,9 @@ class CommentController extends Controller
         $article = Article::find($comment->article_id);
         $article->updated_at = date("Y-m-d H:i:s");     // Being commented is 'update' of thread.
         $article->save();
-        
-        $last_read = Reading::where('user_id','=',\Auth::user()->id)->orderBy('read_at','desc')->first();
-        if($last_read->comment_id != 0){
-            $base_comment = Comment::find($last_read->comment_id);
-            return View('comment/show')->with('comment', $base_comment);
-        }
-        $article = Article::find($last_read->article_id);
-        return View('article/show')->with('article', $article);
+    
+        return redirect()->route('comment.show',[$comment->id]);
+
     }
 
     public function show($id)
