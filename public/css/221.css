@@ -12,7 +12,9 @@
 
 .button_column {
     height:500px;
-
 }
 
+.unread {
+    color: #ff0000;
+}
 

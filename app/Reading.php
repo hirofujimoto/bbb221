@@ -24,4 +24,19 @@ class Reading extends Model
     {
         return $this->belongsTo(Comment::class);
     }
+
+    public static function readArticle($article_id){
+        if(static::where('article_id',$article_id)->where('user_id',\Auth::user()->id)->count()){
+            return true;
+        }
+        return false;
+    }
+
+    public static function readComment($comment_id){
+        if(static::where('comment_id',$comment_id)->where('user_id',\Auth::user()->id)->count()){
+            return true;
+        }
+        return false;
+    }
+
 }

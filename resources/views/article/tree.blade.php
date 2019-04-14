@@ -13,7 +13,12 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <span class="col-md-10">
+                        <span class="col-md-1 unread">
+                        @if(\App\Reading::readArticle($article->id) == false)
+                            {{ __("未読") }}
+                        @endif
+                        </span>
+                        <span class="col-md-9">
                             <a href={{ route('article.show',[$article->id]) }} >
                             {{ sprintf("%s （%s）",$article->title, $article->user->name ) }}
                             </a>
@@ -24,7 +29,12 @@
                     </div>
                     @forelse($tree as $b)
                         <div class="row">
-                            <span class="col-md-10">
+                            <span class="col-md-1 unread">
+                            @if(\App\Reading::readComment($b['id']) == false)
+                                {{ __("未読") }}
+                            @endif
+                            </span>
+                            <span class="col-md-9">
                                 <a href={{ route('comment.show',[$b['id']] ) }} >
                                 {{ sprintf(str_repeat("　",$b['depth'])."→ %s （%s）",$b['head'], $b['user'] ) }}
                                 </a>

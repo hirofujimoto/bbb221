@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Reading;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -30,18 +31,25 @@ class Comment extends Model
 
     public function previous()
     {
-        $prev = Comment::where('article_id',$this->article_id)->where('id','<',$this->id)->orderBy('id','desc')->first();
+        $prev = Comment::where('article_id',$this->article_id)
+            ->where('root_id', $this->root_id)
+            ->where('id','<',$this->id)->orderBy('id','desc')->first();
         if($prev == NULL){
-            return 0;
+            return $this->root_id;
         }
         return  $prev->id;
     }
 
     public function next()
     {
-        $next = Comment::where('article_id',$this->article_id)->where('id','>',$this->id)->orderBy('id','asc')->first();
+        $next = Comment::where('root_id', $this->id)->orderBy('id','asc')->first();
         if($next == NULL){
-            return 0;
+            $next = Comment::where('article_id',$this->article_id)
+            ->where('root_id', $this->root_id)
+            ->where('id','>',$this->id)->orderBy('id','asc')->first();
+            if($next == NULL){
+                return 0;
+            }    
         }
         return  $next->id;
     }
