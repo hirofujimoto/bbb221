@@ -183,7 +183,7 @@ class ArticleController extends Controller
     public function tree($id)
     {
         $article = Article::find($id);
-        $comments = Comment::where('article_id', $id)->where('root_id', 0)->orderBy('updated_at','desc')->get();
+        $comments = Comment::where('article_id', $id)->where('root_id', 0)->orderBy('created_at','asc')->get();
         $tree = Comment::makeTree($comments);
         
         return View('article/tree')->with('article', $article)->with('tree', $tree);
