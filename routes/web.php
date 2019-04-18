@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'ArticleController@index');
-Route::get('/home','ArticleController@index');
+Route::get('/article','ArticleController@index');
 Route::get('/article/index','ArticleController@index')->name('article.index');
 Route::get('/article/create', 'ArticleController@create')->name('article.create');
 Route::post('/article/store', 'ArticleController@store')->name('article.store');
