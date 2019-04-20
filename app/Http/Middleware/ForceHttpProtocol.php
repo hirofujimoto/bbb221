@@ -15,7 +15,7 @@ class ForceHttpProtocol
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->secure() && env('APP_ENV') !== 'local') { // LOCALでなければ常時SSL化する
+        if (!$request->secure() && config('app.env') !== 'local') { // LOCALでなければ常時SSL化する
             return redirect()->secure($request->getRequestUri(), 301);
         }
         return $next($request);
