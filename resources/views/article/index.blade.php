@@ -57,7 +57,7 @@
                             @endif
                         </span>
                         <span class="col-md-3">
-                            <input id="needle" type="search" 
+                            <input id="needle" type="text" 
                                 class="my-search form-control" name="needle" value="{{ Session::get('needle','') }}">
                         </span>
                         <span class="col-md-1">
