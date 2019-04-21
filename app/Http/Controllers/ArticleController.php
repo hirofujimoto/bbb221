@@ -171,12 +171,16 @@ class ArticleController extends Controller
         $request->validate([
             'needle' => 'max:64',
         ]);
-
-        if(strlen($request->needle)){
-            Session::put('needle', $request->needle);
-        }else{
+        if($request->release){
             Session::forget('needle');
+        }else{
+            if(strlen($request->needle)){
+                Session::put('needle', $request->needle);
+            }else{
+                Session::forget('needle');
+            }       
         }
+    
         return redirect()->route('article.index');
     }
 

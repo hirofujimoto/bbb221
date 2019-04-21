@@ -51,7 +51,7 @@
                     <form method="POST" action="{{ route('article.squeeze') }}" >
                     @csrf
                     <div class="row">
-                        <span class="col-md-8">
+                        <span class="col-md-7">
                             @if(!empty($threads))
                                 {{ $threads->onEachSide(5)->links() }}
                             @endif
@@ -61,8 +61,11 @@
                                 class="my-search form-control" name="needle" value="{{ Session::get('needle','') }}">
                         </span>
                         <span class="col-md-1">
-                            <button type="submit" class="btn btn-primary form-control">{{ __('検索') }}</button>
+                            <button type="submit" name="squeeze" value="squeeze" class="btn btn-primary form-control">{{ __('検索') }}</button>
                         </span>
+                        <span class="col-md-1">
+                            <button type="submit" name="release" value="release" class="btn btn-warning form-control">{{ __('解除') }}</button>
+                        </span>       
                     </div>
                     </form>
                </div>
