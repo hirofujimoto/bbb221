@@ -18,3 +18,11 @@
     color: #ff0000;
 }
 
+input[type="search"].my-search {
+    -webkit-appearance: searchfield;
+}
+  
+input[type="search"].my-search::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+  

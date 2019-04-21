@@ -57,8 +57,8 @@
                             @endif
                         </span>
                         <span class="col-md-3">
-                            <input id="needle" type="text" 
-                                class="form-control" name="needle" value="{{ Session::get('needle','') }}">
+                            <input id="needle" type="search" 
+                                class="my-search form-control" name="needle" value="{{ Session::get('needle','') }}">
                         </span>
                         <span class="col-md-1">
                             <button type="submit" class="btn btn-primary form-control">{{ __('検索') }}</button>
