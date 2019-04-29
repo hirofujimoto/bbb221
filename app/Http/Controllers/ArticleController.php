@@ -20,6 +20,7 @@ class ArticleController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware(['auth','verified']);
@@ -30,18 +31,16 @@ class ArticleController extends Controller
      */
     public function index()
     {
-
         if(Session::has('needle')){
 
-    //        \DB::enableQueryLog();
-            $needle = Session::get('needle','');
-            $threads = Article::distinct()->select('articles.*')
+//          \DB::enableQueryLog();
+            $needle  = Session::get('needle','');
+            $threads = Article::groupBy('articles.id')->select('articles.*')
                 ->leftjoin('comments','comments.article_id','=','articles.id')
                 ->orwhere('articles.message','like','%'.$needle.'%')
                 ->orwhere('comments.message','like','%'.$needle.'%')
                 ->orderBy('articles.updated_at', 'desc')->paginate(15);
-            
-    //        dd(\DB::getQueryLog());
+//            dd(\DB::getQueryLog());
         }else{
             $threads = Article::orderBy('updated_at', 'desc')->paginate(15);
         }
