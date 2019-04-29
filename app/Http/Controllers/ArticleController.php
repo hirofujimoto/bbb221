@@ -39,10 +39,10 @@ class ArticleController extends Controller
                 ->leftjoin('comments','comments.article_id','=','articles.id')
                 ->orwhere('articles.message','like','%'.$needle.'%')
                 ->orwhere('comments.message','like','%'.$needle.'%')
-                ->orderBy('articles.updated_at', 'desc')->paginate(15);
+                ->orderBy('articles.updated_at', 'desc')->paginate(20);
 //            dd(\DB::getQueryLog());
         }else{
-            $threads = Article::orderBy('updated_at', 'desc')->paginate(15);
+            $threads = Article::orderBy('updated_at', 'desc')->paginate(20);
         }
         return view('article/index')->with('threads',$threads);
     }
