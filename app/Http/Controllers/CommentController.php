@@ -38,7 +38,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'message' => 'required',
+            'message' => 'required|max:32000',
             'file.imagefile' => 'file|image|mimes:jpeg,png|dimensions:max_width=1200,max_height=1200'
         ]);
 
