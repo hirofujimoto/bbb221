@@ -20,39 +20,63 @@ class Comment extends Model
         return $this->belongsTo(Article::class);
     }
 
-    public function root(){
-        return $this->belongsTo(Comment::class);
-    }
-
     public function histories()
     {
         return $this->hasMany(History::class);
     }
 
+    public function neighbours()
+    {
+        $comments = Comment::where('article_id',$this->article_id)
+            ->where('root_id', 0)->orderBy('created_at','asc')->get();
+        $tree = static::makeTree($comments, []);
+        $previous = $next = 0;
+        for($i = 0; $i < count($tree); $i++){
+            if($tree[$i]['id'] == $this->id ){
+                if($i > 0){
+                    $previous = $tree[$i-1]['id'];
+                }
+                if($i < count($tree) -1 ){
+                    $next = $tree[$i+1]['id'];
+                }
+                break;
+            }
+        }
+        return ['previous'=>$previous, 'next'=>$next];
+    }
+
+    /*
     public function previous()
     {
-        $prev = Comment::where('article_id',$this->article_id)
-            ->where('root_id', $this->root_id)
-            ->where('id','<',$this->id)->orderBy('id','desc')->first();
-        if($prev == NULL){
-            return $this->root_id;
+        $comments = Comment::where('article_id',$this->article_id)
+            ->where('root_id', 0)->orderBy('created_at','asc')->get();
+        $tree = static::makeTree($comments, [], 1);
+        $prev = 0;
+        foreach($tree as $b){
+            if($b['id'] == $this->id){
+                return $prev;
+            }
+            $prev = $b['id'];
         }
-        return  $prev->id;
+        return 0;
     }
 
     public function next()
     {
-        $next = Comment::where('root_id', $this->id)->orderBy('id','asc')->first();
-        if($next == NULL){
-            $next = Comment::where('article_id',$this->article_id)
-            ->where('root_id', $this->root_id)
-            ->where('id','>',$this->id)->orderBy('id','asc')->first();
-            if($next == NULL){
-                return 0;
-            }    
+        $comments = Comment::where('article_id',$this->article_id)
+            ->where('root_id', 0)->orderBy('created_at','asc')->get();
+        $tree = static::makeTree($comments, [], 1);
+        $find = false;
+        foreach($tree as $b){
+            if($find){
+                return $b['id'];
+            }elseif($b['id'] == $this->id){
+                $find = true;
+            }
         }
-        return  $next->id;
+        return 0;
     }
+    */
 
     public static function makeTree($comments, $tree = array(), $depth = 0)
     {

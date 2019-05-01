@@ -79,7 +79,8 @@ class CommentController extends Controller
         $record->save();
 
         $comment = Comment::find($id);
-        return View('comment/show')->with('comment', $comment);
+        $neighbours = $comment->neighbours();
+        return View('comment/show')->with('comment', $comment )->with('neighbours',$neighbours);
 
     }
 

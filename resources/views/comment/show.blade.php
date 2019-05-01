@@ -28,9 +28,9 @@
                         </div>
                         <div class="col-md-1">
                             <div class="button_column">
-                            @if($comment->previous())
+                            @if($neighbours['previous'])
                             <span class='prev_button'>
-                                <a href={{ route('comment.show',[$comment->previous()] )}}
+                                <a href={{ route('comment.show',[$neighbours['previous']] )}}
                                     class="btn btn-success form-control">{{ __('▲') }} </a>
                             </span>
                             @else
@@ -39,9 +39,9 @@
                                     class="btn btn-success form-control">{{ __('▲') }} </a>
                             </span>
                             @endif
-                            @if($comment->next())
+                            @if($neighbours['next'])
                             <span class='next_button'>
-                                <a href={{ route('comment.show',[$comment->next()] )}}
+                                <a href={{ route('comment.show',[$neighbours['next']] )}}
                                     class="btn btn-success form-control">{{ __('▼') }} </a>
                             </span>
                             @endif
