@@ -19,7 +19,7 @@
                         @endif
                         </span>
                         <span class="col-md-9">
-                            <a href={{ route('article.show',[$article->id]) }} >
+                            <a href="{{ route('article.show',[$article->id]) }}" >
                             {{ sprintf("%s （%s）",$article->title, $article->user->name ) }}
                             </a>
                         </span>
@@ -35,7 +35,7 @@
                             @endif
                             </span>
                             <span class="col-md-9">
-                                <a href={{ route('comment.show',[$b['id']] ) }} >
+                                <a href="{{ route('comment.show',[$b['id']] ) }}" >
                                 {{ sprintf(str_repeat("　",$b['depth'])."→ %s （%s）",$b['head'], $b['user'] ) }}
                                 </a>
                             </span>
@@ -52,7 +52,7 @@
                         <span class="col-md-10">
                         </span>
                         <span class="col-md-2">
-                            <a href={{ route('article.index') }} class="btn btn-primary form-control">{{ __('スレッドリスト') }}</a> 
+                            <a href="{{ route('article.index') }}" class="btn btn-primary form-control">{{ __('スレッドリスト') }}</a> 
                         </span>    
                     </div>
                 </div>

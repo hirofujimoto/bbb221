@@ -58,7 +58,7 @@
                                 </button>
                             </div>
                             <div class="col-md-2 offset-md-6">
-                                <a href={{ route("comment.show",[$comment->id]) }} class="btn btn-primary form-control">
+                                <a href="{{ route('comment.show',[$comment->id]) }}" class="btn btn-primary form-control">
                                     {{ __('キャンセル') }}
                                 </a>
                             </div>

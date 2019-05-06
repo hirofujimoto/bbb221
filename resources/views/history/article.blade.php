@@ -22,7 +22,7 @@
                             @if($history->image_tag != '')
                                 <br>
                                 <p>
-                                <img src="{{ Storage::url(sprintf("a%08d%s",$history->article_id, $history->image_tag)) }}" />
+                                <img src="{{ Storage::url(sprintf('a%08d%s',$history->article_id, $history->image_tag)) }}" />
                                 </p>
                             @endif
                         </div>
@@ -30,13 +30,13 @@
                             <div class="button_column">
                                 @if($depth < $count)
                                 <span class='prev_button'>
-                                    <a href={{ route('history.article',[$history->article_id, $depth+1] )}}
+                                    <a href="{{ route('history.article',[$history->article_id, $depth+1] )}}"
                                         class="btn btn-warning form-control">{{ __('▲') }} </a>
                                 </span>
                                 @endif
                                 @if($depth > 1)
                                 <span class='next_button'>
-                                    <a href={{ route('history.article',[$history->article_id, $depth-1] )}}
+                                    <a href="{{ route('history.article',[$history->article_id, $depth-1] )}}"
                                         class="btn btn-warning form-control">{{ __('▼') }} </a>
                                 </span>
                                 @endif
@@ -47,12 +47,12 @@
                 <div class="card-footer">
                     <div class="form-group row">
                         <span class="col-md-2">
-                            <a href={{ route('article.show',[$history->article_id] )}} class="btn btn-warning form-control">{{ __('スレッドに戻る') }} </a>
+                            <a href="{{ route('article.show',[$history->article_id] )}}" class="btn btn-warning form-control">{{ __('スレッドに戻る') }} </a>
                         </span>
                         <span class="col-md-8">
                         </span>
                         <span class="col-md-2">
-                            <a href={{ route('article.index') }} class="btn btn-primary form-control">{{ __('スレッドリスト') }}</a> 
+                            <a href="{{ route('article.index') }}" class="btn btn-primary form-control">{{ __('スレッドリスト') }}</a> 
                         </span>    
                     </div>
                 </div>

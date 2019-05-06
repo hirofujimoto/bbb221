@@ -26,13 +26,44 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="message" class="col-md-1 col-form-label text-md-right">{{ __('本文') }}</label>
-                            <div class="col-md-10">
-                                <input id="article_id", type="hidden", name="article_id", value={{ $article->id }} >
+                            <input id="article_id", type="hidden", name="article_id", value={{ $article->id }} >
                                 @if(isset($comment))
                                     <input id="root_id", type="hidden", name="root_id", value={{ $comment->id }} >
                                 @endif
-                                <textarea id="message" class="form-control" name="message" rows="20" >{{ old('message') }}</textarea>
+                            <label for="base" class="col-md-1 col-form-label text-md-right">{{ __('ベース') }}</label>
+                            <div class="col-md-10 commentbase">
+                                <br>
+                                @if(isset($comment))
+                                    {!! nl2br(
+                                        mb_ereg_replace('(https?://[-_.!~*\'()a-zA-Z0-9;/?:@&=+$,%#]+)', 
+                                        '<a href="\1" target="_blank">\1</a>', $comment->message), false) 
+                                    !!}
+                                    @if($comment->has_image)
+                                        <br>
+                                        <p>
+                                        <img src="{{ Storage::url(sprintf('c%08d',$comment->id)) }}" />
+                                        </p>
+                                    @endif
+                                @else
+                                    {!! nl2br(
+                                        mb_ereg_replace('(https?://[-_.!~*\'()a-zA-Z0-9;/?:@&=+$,%#]+)', 
+                                        '<a href="\1" target="_blank">\1</a>', $article->message), false) 
+                                    !!}
+                                    @if($article->has_image)
+                                        <br>
+                                        <p>
+                                        <img src="{{ Storage::url(sprintf('a%08d',$commarticleent->id)) }}" />
+                                        </p>
+                                    @endif
+                                @endif
+                                <br><br>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group row">
+                            <label for="message" class="col-md-1 col-form-label text-md-right">{{ __('コメント') }}</label>
+                            <div class="col-md-10">
+                                <textarea id="message" class="form-control" name="message" rows="10" >{{ old('message') }}</textarea>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -52,7 +83,7 @@
                                 </button>
                             </div>
                             <div class="col-md-2 offset-md-6">
-                                <a href={{ route("article.index") }} class="btn btn-primary form-control">
+                                <a href="{{ route('article.index') }}" class="btn btn-primary form-control">
                                {{ __('キャンセル') }}
                                 </a>
                             </div>

@@ -18,6 +18,10 @@
     color: #ff0000;
 }
 
+.commentbase {
+    background-color:#dddddd;
+}
+
 input[type="search"].my-search {
     -webkit-appearance: searchfield;
 }

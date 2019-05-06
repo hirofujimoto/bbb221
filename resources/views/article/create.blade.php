@@ -49,7 +49,7 @@
                                 </button>
                             </div>
                             <div class="col-md-2 offset-md-6">
-                                <a href={{ route("article.index") }} class="btn btn-primary form-control">
+                                <a href="{{ route('article.index') }}" class="btn btn-primary form-control">
                                {{ __('キャンセル') }}
                                 </a>
                             </div>
