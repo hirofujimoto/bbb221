@@ -24,7 +24,7 @@
                             <div class="col-md-10">
                                 <input id="article_id" type="hidden" name="article_id" value={{ $article->id }} >
                                 <input id="title" type="text" class="form-control" 
-                                    name="title" value="{{ $article->title }}" readony="readonly" >
+                                    name="title" value="{{ $article->title }}" readonly="readonly" >
                             </div>
                         </div>
 

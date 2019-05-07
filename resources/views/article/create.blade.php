@@ -44,7 +44,8 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-2 offset-md-1">
-                                <button type="submit" class="btn btn-success form-control">
+                                <button type="submit" class="btn btn-success form-control"
+                                 onclick="return confirmSave();">
                                     {{ __('登録') }}
                                 </button>
                             </div>
@@ -61,3 +62,12 @@
     </div>
 </div>
 @endsection
+
+<script>
+
+function confirmSave(){
+
+    return confirm("スレッドを新規に作成します。スレッドのタイトルは後から変更できません。よろしいですか？");
+}
+
+</script>
