@@ -132,7 +132,6 @@ class ArticleController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255',
             'message' => 'required',
             'file.imagefile' => 'file|image|mimes:jpeg,png|dimensions:max_width=1200,max_height=1200'
         ]);
