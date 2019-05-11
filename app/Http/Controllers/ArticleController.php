@@ -33,14 +33,12 @@ class ArticleController extends Controller
     {
         if(Session::has('needle')){
 
-//          \DB::enableQueryLog();
             $needle  = Session::get('needle','');
             $threads = Article::groupBy('articles.id')->select('articles.*')
                 ->leftjoin('comments','comments.article_id','=','articles.id')
                 ->orwhere('articles.message','like','%'.$needle.'%')
                 ->orwhere('comments.message','like','%'.$needle.'%')
                 ->orderBy('articles.updated_at', 'desc')->paginate(20);
-//            dd(\DB::getQueryLog());
         }else{
             $threads = Article::orderBy('updated_at', 'desc')->paginate(20);
         }
@@ -186,7 +184,6 @@ class ArticleController extends Controller
                 Session::forget('needle');
             }       
         }
-    
         return redirect()->route('article.index');
     }
 

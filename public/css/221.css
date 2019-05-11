@@ -18,6 +18,10 @@
     color: #ff0000;
 }
 
+.hit {
+    color: #008800;
+}
+
 .commentbase {
     background-color:#dddddd;
 }

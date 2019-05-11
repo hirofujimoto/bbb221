@@ -28,11 +28,11 @@ class Article extends Model
         return $this->hasMany(History::class)->where('comment_id',0);
     }
 
-
     public function readings()
     {
         $all_message_count = count($this->comments) + 1;
         $all_reading_count = Reading::where('article_id',$this->id)->where('user_id',\Auth::user()->id)->count();
         return  sprintf("%d/%d",$all_message_count-$all_reading_count, $all_message_count);
     }
+
 }

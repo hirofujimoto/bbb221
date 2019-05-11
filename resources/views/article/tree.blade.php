@@ -13,9 +13,12 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <span class="col-md-1 unread">
+                        <span class="col-md-1">
                         @if(\App\Reading::readArticle($article->id) == false)
-                            {{ __("未読") }}
+                            <span class="unread">{{ __("U ") }}</span>
+                        @endif
+                        @if(\App\Reading::hitArticle($article->id) == true)
+                            <span class="hit">{{ __("H")}}</span>
                         @endif
                         </span>
                         <span class="col-md-9">
@@ -29,9 +32,12 @@
                     </div>
                     @forelse($tree as $b)
                         <div class="row">
-                            <span class="col-md-1 unread">
+                            <span class="col-md-1">
                             @if(\App\Reading::readComment($b['id']) == false)
-                                {{ __("未読") }}
+                                <span class="unread">{{ __("U ") }}</span>
+                            @endif
+                            @if(\App\Reading::hitComment($b['id']) == true)
+                                <span class="hit">{{ __("H")}}</span>
                             @endif
                             </span>
                             <span class="col-md-9">
