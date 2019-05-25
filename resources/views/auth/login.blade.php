@@ -56,15 +56,26 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('ログイン') }}
                                 </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('パスワードを忘れた場合はこちら') }}
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </form>
+                </div>
+
+                <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-6 text-md-center">
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('パスワードを忘れた方はこちら...') }}
+                                    </a>
+                                @endif
+                            </div>
+                            <div class="col-md-6 text-md-center">
+                                @if (Route::has('register'))                            
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('初めての方はこちらから...') }}</a>
+                                @endif
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
