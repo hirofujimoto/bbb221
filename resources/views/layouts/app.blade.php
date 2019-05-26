@@ -21,7 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/221.css') }}" rel="stylesheet">
 </head>
-<body style="background-color:#e0e0e0">
+<body class="image-body" >
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
