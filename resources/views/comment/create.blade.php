@@ -52,7 +52,7 @@
                                     @if($article->has_image)
                                         <br>
                                         <p>
-                                        <img src="{{ Storage::url(sprintf('a%08d',$commarticleent->id)) }}" />
+                                        <img src="{{ Storage::url(sprintf('a%08d',$article->id)) }}" />
                                         </p>
                                     @endif
                                 @endif

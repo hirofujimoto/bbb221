@@ -39,7 +39,7 @@ class CommentController extends Controller
     {
         $request->validate([
             'message' => 'required|max:32000',
-            'file.imagefile' => 'file|image|mimes:jpeg,png|dimensions:max_width=1200,max_height=1200'
+            'imagefile' => 'file|image|mimes:jpeg,png|dimensions:max_width=1200,max_height=1200'
         ]);
 
         $comment = new Comment;
