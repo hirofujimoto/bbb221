@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -41,7 +42,10 @@ class CustomVerifyEmail extends \Illuminate\Auth\Notifications\VerifyEmail
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
-    {
+    {   
+        $user_data = $notifiable->toArray();
+        Log::info(sprintf("%s:%s", $user_data['email'], $this->verificationUrl($notifiable) ));
+
         if (static::$toMailCallback) {
             return call_user_func(static::$toMailCallback, $notifiable);
         }
