@@ -40,3 +40,7 @@ Route::post('/comment/update','CommentController@update')->name('comment.update'
 
 Route::get('/history/article/{id}/{depth?}','HistoryController@article')->name('history.article');
 Route::get('/history/comment/{id}/{depth?}','HistoryController@comment')->name('history.comment');
+
+// debug only
+Route::get('/debug/login/{id}', 'DebugController@login');
+

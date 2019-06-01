@@ -27,7 +27,8 @@ class Reading extends Model
     }
 
     public static function readArticle($article_id){
-        if(static::where('article_id',$article_id)->where('user_id',\Auth::user()->id)->count()){
+        if(static::where('article_id',$article_id)->where('comment_id', 0)
+            ->where('user_id',\Auth::user()->id)->count()){
             return true;
         }
         return false;

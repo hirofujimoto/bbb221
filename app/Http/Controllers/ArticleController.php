@@ -79,7 +79,8 @@ class ArticleController extends Controller
 
     public function show($id)
     {
-        $record = Reading::where('article_id',$id)->where('user_id', \Auth::user()->id)->first();
+        $record = Reading::where('article_id',$id)->where('comment_id',0)
+            ->where('user_id', \Auth::user()->id)->first();
         if($record == NULL){
             $record = new Reading;
             $record->user_id = \Auth::user()->id;
