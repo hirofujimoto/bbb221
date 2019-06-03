@@ -46,8 +46,9 @@
                         </span>
                         <span class="col-md-2">
                             @if (count($article->histories))
+                            <!--
                                 <a href="{{ route('history.article',[$article->id]) }}", class="btn btn-warning form-control">{{ __('履歴') }}</a>
-
+                            -->
                             @endif
                         </span>
                         <span class="col-md-2">
