@@ -37,4 +37,11 @@ input[type="search"].my-search::-webkit-search-cancel-button {
 .image-body {
     background-image: url("../images/bgi.jpg");
     background-position: top;
+    height:1350px;
+}
+
+.image-logo {
+    background-image: url("../images/logo.jpg");
+    background-position: center;
+    height:250px;
 }

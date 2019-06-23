@@ -21,9 +21,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/221.css') }}" rel="stylesheet">
 </head>
-<body class="image-body" >
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel image-body">
+<body>
+    <div id="app" >
+        <nav class="navbar-expand-md navbar-light navbar-laravel image-logo">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -71,7 +71,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 image-body">
             @yield('content')
         </main>
     </div>
